@@ -1,0 +1,6 @@
+	IFNE	cestimeron
+	global	cestimetext,cesmintext,cessectext,ceszerotxt
+	ENDC
+	IFNE	MSU
+	global	nomsutxt
+	ENDC

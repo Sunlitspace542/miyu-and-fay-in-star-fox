@@ -1,0 +1,53 @@
+#ROMs
+*.sfc
+*.smc
+*.SFC
+*.SMC
+*.srm
+*.ram
+
+#MSU stuff
+*.msu
+*.pcm
+
+#ZIPs
+*.7z
+*.zip
+*.rar
+
+#patches
+*.bps
+*.BPS
+*.ips
+*.IPS
+
+#backups
+*.bak
+*.BAK
+
+# build logs
+*.LOG
+*.log
+*/SF/*.DOC
+*/SF/*.doc
+*/SF/*.TMP
+*/SF/*.tmp
+*/SF/*.txt
+*.TXT
+*.CSV
+*.csv
+*.CSV#
+*.csv#
+
+# VSCode stuff
+*/.vscode/*
+
+# Files generated during assembly
+*.CCR
+*.PCR
+SF/DATA/COL/*.PAC
+SF/DATA/COL/ALLCOLS.COL
+
+# Object files
+*.sob
+*.SOB

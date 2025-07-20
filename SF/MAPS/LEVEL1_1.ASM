@@ -1,0 +1,92 @@
+; 1-1 Corneria 1
+level1_1
+	scrambleandbaseexit	1
+
+	IFEQ	0 ; commented out to test clear,chase
+
+	mapobj	0000,-600,0000,2000,BU_1,HARD180YR_ISTRAT
+	mapobj	0000,0600,0000,2000,BU_1,HARD180YR_ISTRAT
+
+	mapobj	0000,-800,0000,3500,BU_1,HARD180YR_ISTRAT
+	mapobj	0000,0800,0000,3500,BU_1,HARD180YR_ISTRAT
+.buloop
+	mapobj	0000,-1000,0000,5000,BU_1,HARD180YR_ISTRAT
+	mapobj	1500,01000,0000,5000,BU_1,HARD180YR_ISTRAT
+	maploop	.buloop,03
+
+	cspecial	0000,-500,-300,0000,zaco_5,zaco1l_istrat
+	mapobj	0000,-1100,0000,5000,BU_1,HARD180YR_ISTRAT
+	mapobj	1500,01100,0000,5000,BU_1,HARD180YR_ISTRAT
+
+	mapobj	0000,-1200,0000,5000,BU_1,HARD180YR_ISTRAT
+	mapobj	0000,01200,0000,5000,BU_1,HARD180YR_ISTRAT
+
+	pathobj	0000,00000,-400,-100,friendship_4,frog1_1,10,10
+
+	setrestart	
+	mapplayermode	onplanet
+	mapjsr	map1_1b
+
+	mapobj	0500,1000,0000,8000,BU_6,HARD180YR_ISTRAT
+	mapobj	1000,-0800,0000,10000,BU_5,HARD180YR_ISTRAT
+	mapobj	1000,-1200,0000,12000,BU_4,HARD180YR_ISTRAT
+	ENDC
+
+	IFEQ	1 ; chase test
+
+	setrestart
+
+.chaseloop
+;	pathobj	0000,-750,-400,0000,friendship_4,chase6_1,10,10	
+;	pathcspecial	2000,-720,-400,0000,zaco_a,chase6_2,10,10	
+
+	mapwait	4000
+	mapwait	4000
+	mapwait	4000
+
+	pathobj	0000,900,-60,0000,friendship_4,chase4_1,200,10
+	pathcspecial	0000,900,-60,0000,zaco_b,chase4_2,200,10
+	pathcspecial	1000,900,-60,0000,zaco_b,chase4_3,200,10
+
+;	pathobj	0000,-750,-400,0000,friendship_4,chase6_1,10,10	
+;	pathcspecial	2000,-720,-400,0000,zaco_a,chase6_2,10,10	
+
+	pathobj	0000,900,-60,0000,friendship_4,chase4_1,200,10
+	pathcspecial	0000,900,-60,0000,zaco_b,chase4_2,200,10
+	pathcspecial	1000,900,-60,0000,zaco_b,chase4_3,200,10
+
+	mapwait	4000
+	mapwait	4000
+	mapwait	4000
+
+;	pathobj	0000,-750,-400,0000,friendship_4,chase6_1,10,10	
+;	pathcspecial	2000,-720,-400,0000,zaco_a,chase6_2,10,10	
+
+	pathobj	0000,900,-60,0000,friendship_4,chase4_1,200,10
+	pathcspecial	0000,900,-60,0000,zaco_b,chase4_2,200,10
+	pathcspecial	1000,900,-60,0000,zaco_b,chase4_3,200,10
+
+	mapwait	4000
+	mapwait	4000
+	mapwait	4000
+
+;	pathobj	0000,-750,-400,0000,friendship_4,chase6_1,10,10	
+;	pathcspecial	2000,-720,-400,0000,zaco_a,chase6_2,10,10	
+
+	pathobj	0000,900,-60,0000,friendship_4,chase4_1,200,10
+	pathcspecial	0000,900,-60,0000,zaco_b,chase4_2,200,10
+	pathcspecial	1000,900,-60,0000,zaco_b,chase4_3,200,10
+
+	mapwait	4000
+	mapwait	4000
+	mapwait	4000 ; remove when done 
+
+	mapgoto	.chaseloop
+
+	ENDC
+
+	mapjsr	cl_ground ; Clear type
+	mapend
+
+
+
