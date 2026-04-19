@@ -4941,9 +4941,9 @@ se_miyuradiochatdown: ; Miyu radio chat down
 se_fayradiochat: ; Fay radio chat
 	%teammateradiochat()
 	%inst(1F) ; 1-up F
-	%dur($13) : %vol($7D) : %pitch($95)
-	%pitch($95) ; dur+vol carry over
-	%pitch($95)
+	%dur($13) : %vol($7D) : %pitch($98)
+	%pitch($98) ; dur+vol carry over
+	%pitch($98)
 	db $00
 
 se_fayradiochathit: ; Fay radio chat hit
