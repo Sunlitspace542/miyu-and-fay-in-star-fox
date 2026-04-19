@@ -113,6 +113,7 @@ nmihan ; Start of NMI handler
 ; Randy's rumble controller fix for hardware
 ; HACK: Force re-read of controller bits to get timing right for rumble handler
 
+; This part is to make sure that you don't overrun blanking
 	lda	slhvr				; Latch Raster Position
 	lda	stat78r				; Update H/V Counters
 	lda	opvctr				; Get Low 8Bits VPos
@@ -126,6 +127,8 @@ nmihan ; Start of NMI handler
 .to_skip_rumble
 	brl	.skip_rumble
 
+; This part does the equivalent of the auto-read of the controllers,
+; which is what the rumble hardware is looking for
 .readjoy
 	lda	#$01
 	sta	JOYSER0				; Reset Data Counter
@@ -135,15 +138,19 @@ nmihan ; Start of NMI handler
 	nop
 	nop
 
-	ldy	#16-1				; Read 16 Controller Bits
-.readjoy2
-	lda	JOYSER0				; Controller I
-	dey
-	bpl	.readjoy2
+;	ldy	#16-1				; Read 16 Controller Bits
+;.readjoy2
+;	lda	JOYSER0				; Controller I
+;	dey
+;	bpl	.readjoy2
 
-	ldx	#$40
+; Clock controller port 1 16 times
+; Saves 70 cycles
+	jsl	clkjoyser016x_l
 
 ; Handle rumble controller commands
+
+	ldx	#$40
 
 ; Send magic number 01110010 (rumble sentry)
 ; send a bit, clock controller port 1
