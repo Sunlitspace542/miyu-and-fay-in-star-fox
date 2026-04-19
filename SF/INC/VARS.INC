@@ -173,6 +173,10 @@ HF6	equ	1<<5
 HF7	equ	1<<6
 HF8	equ	1<<7
 
+; DO NOT CHANGE THIS, THIS IS ONLY FOR DOCUMENTATION
+__friends_hp	equ	28 ;40
+__friends_hp_unit	equ	7 ;10
+
 ; continue.asm
 ; Character mugshot list
 

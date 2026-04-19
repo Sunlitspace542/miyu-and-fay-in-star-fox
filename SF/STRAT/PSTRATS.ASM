@@ -2170,7 +2170,7 @@ playermove_srou
 
 	lda			#1
 	IFEQ	INFBOOST
-	sta.l			m_boostcnt
+	sta			boostcnt
 	ENDC
 
 	s_set_vartobeobj	boostobj,x
@@ -2264,7 +2264,7 @@ playermove_srou
 	s_queue_rumble	1,1,5
 	ENDC
 	lda	#1
-	sta.l	m_boostcnt
+	sta	boostcnt
 	s_set_var	B,player_tospeed,#minpspeed
 	s_set_alvar	B,x,al_sbyte2,#30
 

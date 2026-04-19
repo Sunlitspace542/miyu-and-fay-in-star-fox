@@ -8,8 +8,10 @@
 	zmalc	m_player,2
 	zmalc	m_numshapes,2
 	zmalc	m_damage,2
-	zmalc	m_boostcnt,2
 	zmalc	m_boostanim,2
+	ifeq	shieldboostcolorbox
+	zmalc	m_shieldup,2
+	endc
 
 rlistptr	equr	r1
 rzstore	equr	r2
@@ -902,7 +904,17 @@ mdamagemeter
 	IFNE	shieldboostcolorbox
 	move	r0,#4
 	ELSEIF
-	move	r0,#2
+	; if wireframe shield activated:
+	move	r0,[m_shieldup]	; load m_shieldup into r0
+	lob	; test lo byte (the half that the 65816 writes to in calcmeters) and set flags; is the lo byte != 0?
+	beq	.nowireframe	; no, do not change meter color
+	nop	; nop to prevent below instruction from being executed after branching
+	move	r0,#7	; yes!
+	bra	.pickedcolor	; all done
+	nop
+.nowireframe	; if shieldup flag not set
+	move	r0,#2	; use normal meter color
+.pickedcolor
 	ENDC
 	mcall	mdrawsolidbox
 	nop

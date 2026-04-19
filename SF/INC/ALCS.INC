@@ -719,6 +719,7 @@ xlen	=	22*1024+450
 ;	alc	zbblks,zb_size*number_zb			;1400 bytes free!
 
 ;ADD NEW ALCS HERE------------------------------
+	alc	boostcnt,1
 	IFNE	mouseon
 	alc	mousemode,2
 	alc	mousemodetemp,2

@@ -542,7 +542,7 @@ mshowteammate
 	ibt	r0,#14 ; outer box colour
 	lms	r1,[m_x1]
 	lms	r2,[m_y1]
-	iwt	r3,#24
+	iwt	r3,#32
 	iwt	r4,#8+4
 	mcall	mdrawbox
 	nop
@@ -555,8 +555,8 @@ mshowteammate
 	inc	r2
 	inc	r2
 	lms	r3,[m_z1]
-	with	r3
-	div2 ; width / 2
+;	with	r3
+;	div2 ; width / 2
 	iwt	r4,#8
 	mcall	mdrawsolidbox
 	nop
@@ -575,7 +575,7 @@ mshowteammate2
 	ibt	r0,#14
 	lms	r1,[m_x1]
 	lms	r2,[m_y1]
-	iwt	r3,#40+4
+	iwt	r3,#32 ;40+4
 	iwt	r4,#8+4
 	mcall	mdrawbox
 	nop

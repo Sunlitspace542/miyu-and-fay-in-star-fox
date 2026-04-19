@@ -878,14 +878,14 @@ friends_messages_l
 	db	$7f	; frog down
 	db	$63	; frog other
 	db	$63	; frog
-	db	$7c	; miyu help
-	db	$7d	; miyu down
-	db	$62	; miyu other
-	db	$62	; miyu
-	db	$7c	; fay help
-	db	$7d	; fay down
-	db	$62	; fay other
-	db	$62	; fay
+	db	$c1	; miyu help
+	db	$c2	; miyu down
+	db	$c0	; miyu other
+	db	$c0	; miyu
+	db	$c4	; fay help
+	db	$c5	; fay down
+	db	$c3	; fay other
+	db	$c3	; fay
 	db	$2D	; rob help
 	db	$2D	; rob down
 	db	$2D	; rob other

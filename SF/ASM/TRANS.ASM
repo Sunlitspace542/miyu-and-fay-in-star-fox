@@ -629,20 +629,24 @@ dmahpos	ai8
 
 ;------------------------------------------------------------------------------
 calcmeters	a8i16
+	ifeq	shieldboostcolorbox
+	lda	shieldup
+	sta.l	m_shieldup
+	endc
 	ldx	pcboxobj_b
 	lda	al_HP,x
 	bpl	.ok
 	lda	#0
 .ok	sta.l	m_damage
 
-boost	lda.l	m_boostcnt
+boost	lda	boostcnt
 	beq	.end
 	lda.l	m_boostanim
 	dec	a
 	dec	a
 	bpl	.ok
 	lda	#0
-	sta.l	m_boostcnt
+	sta	boostcnt
 .ok	sta.l	m_boostanim
 	bra	.draw
 .end	lda.l	m_boostanim

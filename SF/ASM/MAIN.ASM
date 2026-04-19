@@ -25,7 +25,7 @@ initialise_l ; Initialize game
 	php ; Push Processor status to stack
 	a8 ; set A to 8-bit
 
-	lda	#40	; store 40 in all these variables:
+	lda	#__friends_hp	; store 40 in all these variables:
 	sta	fox	; hack to allow check for fox's hp
 	sta	frog
 	sta	bunny
@@ -1025,9 +1025,9 @@ makeendobj2	sta	kval1
 
 
 ;----------------------------------------------------------------------------------------------
-nametxt	dw	peppytxt&WM,falcotxt&WM,slippytxt&WM,miyutxt&WM,faytxt&WM ; Name text for Peppy, Falco, and Slippy
-namepos	dw	0,48,92,147,199 ; Screen positions for names
-deadnamepos	dw	0,48,97,147,190 ; Screen positions for "IS DOWN" text if teammate(s) are down
+nametxt	dw	peppytxt&WM,falcotxt&WM,slippytxt&WM,miyutxt&WM,faytxt&WM ; Name text for Peppy, Falco, Slippy, Miyu, and Fay
+namepos	dw	0,47,92,146,198 ; Screen positions for names
+deadnamepos	dw	2,49,97,145,194 ; Screen positions for "IS DOWN" text if teammate(s) are down
 namegfxpos
 	db	0,11*8 ; Position for Peppy name gfx
 	db	6,11*8 ; Position for Falco name gfx
@@ -1244,7 +1244,7 @@ printspeclp
 
 	ldx	#0
 	ldy	#0
-	lda	#5 ;9 ;0 ;11			;x position
+	lda	#0 ;5 ;9 ;0 ;11			;x position
 	sta.l	m_x1
 	sta	ktpx
 .lp

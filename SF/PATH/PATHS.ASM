@@ -49,7 +49,7 @@ pathinfo	=	0	; output path information?
 
 	incfile	PATH\pathmacs.asm
 
-friendhp_unit	=	10
+friendhp_unit	=	__friends_hp_unit
 
 pathdha_istrat
 	s_start_strat
