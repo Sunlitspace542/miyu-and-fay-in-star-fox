@@ -544,9 +544,6 @@ mshowteammate
 	lms	r2,[m_y1]
 	iwt	r3,#24
 	iwt	r4,#8+4
-	from	r3
-;	to	r3 ;test
-;	div2
 	mcall	mdrawbox
 	nop
 
@@ -558,12 +555,8 @@ mshowteammate
 	inc	r2
 	inc	r2
 	lms	r3,[m_z1]
-;	REPT	12	; \
-;	dec	r3		;  | this is a stupid way of doing things
-;	ENDR		; /
-	from	r3
-	to	r3 ;test
-	div2
+	with	r3
+	div2 ; width / 2
 	iwt	r4,#8
 	mcall	mdrawsolidbox
 	nop
