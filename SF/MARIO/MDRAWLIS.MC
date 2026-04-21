@@ -800,7 +800,11 @@ mboostmeter
 	move	r2,#boosty+2
 	move	r4,#boostheight-4
 
+	IFNE shieldboostcolorbox
 	move	r0,#7
+	ELSEIF
+	move	r0,#6
+	ENDC
 	mcall	mdrawsolidbox
 	nop
 	
