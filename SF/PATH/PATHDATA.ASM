@@ -5050,9 +5050,11 @@ eguchi1
 .2kasms_1
 	P_NOTFRIEND		frog,.2kasms_1_1
 	P_MSG		57			;FROG
+	P_IGOTO		.2kasms_2
 .2kasms_1_1
 	P_NOTFRIEND		miyu,.2kasms_1_2
 	P_MSG		168			;MIYU
+	P_IGOTO		.2kasms_2
 .2kasms_1_2
 	P_NOTFRIEND		fay,.2kasms_2
 	P_MSG		169			;FAY
