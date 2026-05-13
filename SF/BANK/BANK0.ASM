@@ -91,10 +91,9 @@ abort_vn
 	inccru	bgandpcr,data\and.pcr
 	incfile	STRAT\istrats.asm
 	incfile	STRAT\d3strats.asm
-	IFNE	msu
-	include	ASM\MSU.ASM ; Include MSU playback logic (I hate hardcoded ROM locations)
+	IFNE	MSU1
+	include	ASM\MSUDRV.ASM ; MSU-1 music driver
 	ENDC
-	; must be space at end of bank 32 for MSU
 	bankend	32
 
 	;; ROM HEADER

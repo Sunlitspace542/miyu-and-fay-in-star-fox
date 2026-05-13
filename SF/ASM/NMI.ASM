@@ -31,18 +31,6 @@ copy_to_0101_l
 	sasm_mvn	$1f,$00
 	ENDC
 
-	IFNE	MSU
-; Copy MSU fade handler to $0162 (right after the NMI/IRQ handler in RAM)
-	ai16
-	ldx	#msufadehan&WM ; src data addr
-	ldy	#$0162 ; dest data addr
-	lda	#msufadehanend-msufadehan-1 ; len of data to copy
-	IFNE	FASTROM
-	sasm_mvn	$9f,$80
-	ELSEIF
-	sasm_mvn	$1f,$00
-	ENDC
-	ENDC
 
 	a8i16 ; set A to 8 bit and X/Y to 16 bit
 
@@ -77,13 +65,7 @@ nmihan ; Start of NMI handler
 	nop		;$010b ; No Operation
 .irq	ai16		;$010c	irq
 	pha	; Push A to stack
-
-	IFNE	MSU
-	jsl	$000162 ; Legacy MSU-1 fade routine (unstable!!)
-	ELSEIF
-
 	lda.l	m_sfr ; Load m_sfr into A (MARIO chip flags?)
-	ENDC
 
 	IFEQ	RUMBLE
 	bmi	.qexit ; branch if a = 1
@@ -256,7 +238,21 @@ nmihan ; Start of NMI handler
 .rumblehan_dontdectime
 
 .skip_rumble
+	ENDC	;RUMBLE
+
+	IFNE	MSU1
+; Handle MSU-1 fades
+	lda msufadeflag	; check fade flag
+	beq .msu1han_nofade	; if zero, don't fade
+	lda curmsuvolume	; load current volume
+	beq .msu1han_nofade	; if zero, don't fade
+	sec
+	sbc	#msu_voldecrement
+	sta curmsuvolume	; store new volume
+	sta msu_volume	; set msu-1 volume
+.msu1han_nofade
 	ENDC
+
 
 	nastyon ; Turn MARIO nasty mode on
 	jsl	irqcode_l ; Jump to irqcode_l
@@ -306,32 +302,3 @@ nmihan ; Start of NMI handler
 	rti ; Return from interrupt
 
 nmihanend ; End of NMI Handler
-
-	IFNE	MSU
-msufadehan
-	lda.l msu_017f
-	and	#$00ff
-	cmp	#$00f1
-	beq	.k1
-	bra	.skipfade
-	rtl
-.k1
-	a8
-	lda.l msu_017e
-	beq .endslow
-	dec a
-	dec a
-	cmp #$10
-	bcs .k2
-.endslow
-	lda #$00
-	sta.l	msu_017f ;erase fade flag
-.k2	sta.l	msu_017e
-	sta	msu_volume
-.skipfade
-	ai16
-	lda.l m_sfr
-	rtl
-msufadehanend
-	ENDC
-

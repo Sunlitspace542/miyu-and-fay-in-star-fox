@@ -36,7 +36,9 @@
 	include	EXT\expstrat.ext
 	include	EXT\shbanks.ext
 	include	EXT\mem.ext
-	include	EXT\msu.ext
+	IFNE	MSU1
+	include	EXT\msudrv.ext
+	ENDC
 	include	INC\istrats.inc
 
 	include	EXT\mhofs.ext

@@ -295,6 +295,9 @@ endseq_l	php
 	lda	#$80
 	setinidisp1
 	startbgm	012h
+	IFNE	MSU1
+	msuplay	bossroll,repeat
+	ENDC
 	stz	doingend
 
 	a8i16
@@ -1631,9 +1634,6 @@ titleseq_l	php
 	IFNE	nointroseq ; If intro sequence disabled
 	a8i16
 
-	IFNE	msu
-	jsl CheckForMSU ; check for the MSU-1
-	ENDC
 
 	bgm	init
 	
@@ -1730,92 +1730,6 @@ titleredo	a8i16
 	jmp	titleredo
 
 
-;-------------------------------------------------------------------
-; MSU-1 LOGO SEQUENCE
-
-msu1screen_l
-	a8i16
-
-	IFNE	msu
-	jsl CheckForMSU ; check for the MSU-1
-	ENDC
-
-	; don't need bgm
-
-;	bgm	init
-;	ldx	#0
-;.ll2	dex
-;	bne	.ll2
-
-	disable
-
-	lda	#1
-	sta.l	oncewipe
-	lda	#msu1map>>16
-	ldx	#msu1map&$7fff
-	sta	mapbank
-	stx	mapptr
-	jsl	initgame_l
-	s_and_var		B,pshipflags3,#~psf3_enginesnd
-
-	jsl	setcharmapfox_l
-
-	lda	#0
-	sta.l	m_meters
-	sta	exitintro
-;	sta.l	oncewipe
-	stz	gameframe
-
-	lda	#25
-	sta sunlittemp1 ; store wait time to auto-continue
-
-.lp32	jsl	setblack_l
-	jsl	transfer_l
-	a8
-	lda	gameframe
-	cmp	#30
-	bcc	.lp32
-
-	lda	exitintro
-	bne	.waitup2
-
-	IFNE	MSU
-	lda	msupresent
-	bne	.msuchk2pass
-	beq	.msuchk2fail
-.msuchk2pass
-	ENDC
-	dec	sunlittemp1 ; dec wait timer
-	lda	sunlittemp1
-;	cmp	#0
-	beq	.waitup2
-; look for any controller input to skip
-	lda	cont0
-	ora	contl0
-	beq	.lp32
-	beq	.waitup2
-	bne	.lp32
-.msuchk2fail
-
-;	IFNE	MSU
-;	lda	msupresent
-;	bne	.msuchk3pass
-;	beq	.msuchk3fail
-;.msuchk3fail	bra	.msuchk2fail
-;.msuchk3pass
-;	ENDC
-.waitup2
-	lda	#-2
-	sta	fadedir
-	lda	#11
-	sta	fade
-.finishlp
-	jsl	setblack_l
-	jsl	transfer_l
-	a8
-	lda	fadedir
-	bne	.finishlp
-	rtl
 
 ;-------------------------------------------------------------------
 ; INTRO SEQUENCE
@@ -1829,6 +1743,10 @@ intro_l
 	bne	.ll
 
 	bgm	intro
+	IFNE	MSU1
+	msuplay	titledemo,norepeat
+	ENDC
+
 	disable
 
 	lda	#intromap>>16

@@ -293,6 +293,9 @@ high	=	-600
 ; boss 2 test
 	fadeoutbgm
 	setbgm	5
+	IFNE	MSU1
+	mapmsuplay	boss3_5,repeat
+	ENDC
 	mapobj	0000,0000,0<<boss2_scale,4000,boss_2_2,boss2_Istrat
 	mapwaitboss
 	mapobj	0000,1000,0000,5000,RO_6,hard180yr_ISTRAT   ;

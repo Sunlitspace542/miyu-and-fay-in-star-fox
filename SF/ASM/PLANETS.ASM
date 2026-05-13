@@ -368,8 +368,17 @@ planetseq_l
 	beq	.blackholebgm
 	cmp	#10
 	bne	.normbgm
-.blackholebgm	startbgm	$f
+.blackholebgm
+	startbgm	$f
+	IFNE	MSU1
+	msuplay_alt	blackholemap,repeat
+	bra	.donenormbgm
+	ENDC
 .normbgm
+	IFNE	MSU1
+	msuplay_alt	map,repeat
+	ENDC
+.donenormbgm
 
 	lda	#-1
 .nxtfad	pha
@@ -844,8 +853,14 @@ planetseq_l
 	bit	#128
 	bne	.spheresnd
 	startbgm	bgm_mapselectshort
+	IFNE	MSU1
+	msuplay_alt	briefingshort,norepeat
+	ENDC
 	bra	.miss
 .spheresnd	startbgm	bgm_mapselect
+	IFNE	MSU1
+	msuplay_alt	briefing,norepeat
+	ENDC
 .miss
 
 ; now the hdma is switching the screen on and off to give us an effective

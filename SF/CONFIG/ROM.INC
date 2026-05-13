@@ -7,18 +7,8 @@
 ; Cartridge Configuration
 
 ; MSU-1 support [0 = off, 1 = on]
-; The game looks for the MSU-1 on startup.
-; If the MSU-1 is not present, the game falls back to SPC700 audio.
-msu			equ 0
-
-; New MSU-1 Driver (WIP)
-; Also enables msu-1 logo splash screen on boot.
-newmsu1		equ	0
-
-; MSU-1 video player (not yet implemented)
-; requires that MSU-1 support be enabled
-; [0 = off, 1 = on]
-msuvideo	equ	0
+; SHVC-SOUND-driven music is replaced with MSU-1 driven music.
+;msu1		equ	1	; set on command line
 
 ; enable/disable FastROM [1 = on, 0=off]
 FASTROM	equ 0
@@ -68,9 +58,3 @@ docredzname	MACRO
 
 ; Sanity checks (do not touch)
 
-	IFEQ	msu
-	IFNE	msuvideo
-	printf	"msu must be enabled in CONFIG\ROM.INC!"
-	fail
-	ENDC
-	ENDC

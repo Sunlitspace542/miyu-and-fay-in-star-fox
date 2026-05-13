@@ -66,6 +66,9 @@ foxy_continue_l
 	lda	#1
 	jsl	setpal_l
 	bgm	continue
+	IFNE	MSU1
+	msuplay	continue,repeat
+	ENDC
 	lda	#%11100000
 	sta	coldata
 	stz	cgadsub
@@ -672,6 +675,8 @@ send_message_l
 	tay
 	a8
 
+	cpy	#friend_fay+1
+	bcs	.nometer			; no friends outside team should have meter
 	lda.w	friends_hp-1,y
 	beq	.finished2
 

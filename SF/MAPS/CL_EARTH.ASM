@@ -2,9 +2,16 @@ cl_earth
 	mapmother	0,0,0,3000,mother1,mother1_istrat,mother_CLasteroids
 	mapplayeroutview
 
+	IFNE	MSU1
+	mapmsufade
+	mapwait	2000
+	ENDC
 	setbgm	$f1
 	
 	mapCLplayermode	ClearEarth
+	IFNE	MSU1
+	mapmsuplay	clearorch,repeat
+	ENDC
 	setbgm	bgm_fanfare
 	mapwait	3300
 

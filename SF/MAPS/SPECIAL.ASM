@@ -36,6 +36,9 @@ specialmap
 
 	fadeoutbgm
 	setbgm	5
+	IFNE	MSU1
+	mapmsuplay	bossootd,repeat
+	ENDC
 
 	pathobj	0000,3000,0000,4200,slot_0,slotmachine,10,10
 	mapwaitboss 7
@@ -60,7 +63,9 @@ endofspecialmap
 
 	setvar.w hposjmp,rotate_hof
 
-
+	IFNE	MSU1
+	mapmsuplay	clearband,repeat
+	ENDC
 	mapjsr	cutcreds
 
 	mapwait	6000

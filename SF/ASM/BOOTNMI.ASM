@@ -58,10 +58,11 @@ startboot	disable ; Disable Interrupts
 	sta	mousemodetemp	; (enable mouse)
 	ENDC ; End conditional
 
-	IFEQ	nointroseq ; start conditional: if nointroseq = 0
-	IFNE	newmsu1
-	jsl	msu1screen_l	; Jump to MSU-1 logo screen / chip existence check
+	IFNE	MSU1
+	jsl	CheckForMSU1_l ; Check for the MSU-1
 	ENDC
+
+	IFEQ	nointroseq ; start conditional: if nointroseq = 0
 	jsl	intro_l ; Jump to Intro Sequence
 	ENDC ; End conditional
 
@@ -104,8 +105,8 @@ restart	ai16 ; set A/X/Y to 16 bit
 	lda	mousemodetemp ; load value in mousemode temp var to A
 	pha ; Push A to stack
 	ENDC ; End conditional
-	IFNE	MSU
-	lda	msupresent
+	IFNE	MSU1
+	lda	msupresent	; save msu present flag
 	pha
 	ENDC
 
@@ -126,9 +127,9 @@ restart	ai16 ; set A/X/Y to 16 bit
 	sta	rand
 	ENDC
 
-	IFNE	MSU
+	IFNE	MSU1
 	pla
-	sta	msupresent
+	sta	msupresent	; restore msu present flag
 	ENDC
 
 	IFNE	mouseon ; start conditional: If SNES mouse enabled
@@ -166,16 +167,20 @@ firsttimeuse
 	jml	planetseq_l ; Jump to planet routine
 
 ;-----------------------------------------------------------------------
-	IFNE	msu
-CheckForMSU
+	IFNE	MSU1
+CheckForMSU1_l
 	lda	MSU_ID
-	cmp	#$53	; 'S'
-	bne	NoMSU	; Stop checking if it's wrong
-MSUFound
+	cmp	#'S'	;-MSU1
+	bne	.NoMSU	; Stop checking if it's wrong
+	; If chip present, what's its revision number?
+	lda	MSU_STATUS
+	and	#%00000111		; Isolate revision bits
+	cmp	#2
+	bcc	.NoMSU	; Stop checking if revision < 2
+.MSUFound
 	lda	#1
 	sta	msupresent
-;	startbgm $F0
-NoMSU
+.NoMSU
 	rtl
 	ENDC
 ;-----------------------------------------------------------------------
@@ -264,11 +269,7 @@ initialise_ram
 	dex ; decrement X
 	bpl	.zpage ; repeat until x = 0
 
-	IFNE	msu
-	jsl	transfermsu ; Copy MSU1 handler to RAM at $FD00
-	ELSEIF ; when MSU is on, this is called in MSU.ASM instead
 	jsl	copy_to_0101_l ; Copy NMI handler to RAM at $0101
-	ENDC
 
 ; NTSC/PAL
 	a8 ; set A to 8 bit

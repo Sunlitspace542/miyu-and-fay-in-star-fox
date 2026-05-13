@@ -328,16 +328,8 @@ setothmus	macro
 	endm
 
 setbgm	macro
-;	start_65816
-;	a8
-;	lda	msupresent
-;	bne	.no\@
-;	end_65816
 	db	ctrlsetbgm
 	db	\1
-;	start_65816
-;.no\@
-;	end_65816
 	endm
 
 vofson	macro
@@ -1928,6 +1920,9 @@ map_farships2	MACRO
 
 fadeoutbgm	MACRO
 	setbgm	$f1
+	IFNE	MSU1
+	mapmsufade
+	ENDC
 	mapwait	medpspeed*30
 	ENDM
 ;-------------------------------------------------------------------------------------

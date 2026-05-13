@@ -10,6 +10,9 @@
 	include	EXT\dstrats.ext
 	include	EXT\bootnmi.ext
 	include	EXT\paths.ext
+	IFNE	MSU1
+	include	EXT\msudrv.ext
+	ENDC
 
 	bank	11
 	IFNE	RUMBLE

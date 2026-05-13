@@ -299,12 +299,6 @@ xlen	=	22*1024+450
 ;	zalc	pat0ptr,2
 ;	zalc	pattern0,1
 ;	zalc	pattern1,1
-;--------MSU1---------
-	IFNE	msu
-    zalc    msu_017e,1 ; MSU1 zeropage variable ($7E017E)
-    zalc    msu_017f,1 ; MSU1 zeropage variable ($7E017F)
-	ENDC
-;---------------------
 
 
 ; Vars kept between levels
@@ -669,8 +663,8 @@ xlen	=	22*1024+450
 	alc	miyu,1
 	alc	fay,1
 
-	alc	pepper,1
-	alc	andorf,1
+;	alc	pepper,1
+;	alc	andorf,1
 	alc	hdmacirclebuf1,2
 	alc	hdmacirclebuf2,2
 	alc	whichcircle,1
@@ -725,9 +719,23 @@ xlen	=	22*1024+450
 	alc	mousemodetemp,2
 	alc	boostorbrake,2
 	ENDC
-	alc	open_text,2
+	alc	open_text,3 ; SUNLITNOTE changed from 2 bytes to 3, SFCD needed this to keep debug prints working
+	IFNE	MSU1
 	alc	msupresent,1
-	alc	sunlittemp1,2
+	ENDC
+
+; msudrv.asm
+	IFNE	MSU1
+	zalc	msufadeflag,1	; \
+	zalc	curmsuvolume,1	; / MUST BE IN ZEROPAGE!!
+	zalc	msu_dest_zptr,2	; zp pointer for data stream destination address
+
+	; MSU-1 data streaming routine alcs
+	alc	msu_read_len,2
+	alc	orchorband,1	; orchestra or band (for player down BGM) [0 = band, 1 = orch]
+msu_band	equ	0
+msu_orch	equ	1
+	ENDC
 
 	IFNE	RUMBLE
 ; zeropage alcs for rumble

@@ -3,9 +3,16 @@ cl_chase
 	mapplayeroutview
 
 	setbgm	$f1
+	IFNE	MSU1
+	mapmsufade
+	mapwait	2000
+	ENDC
 	
 	mapCLplayermode	clearChase
 	setbgm	bgm_fanfare
+	IFNE	MSU1
+	mapmsuplay	clearorch,repeat
+	ENDC
 	mapwait	3800
 
 

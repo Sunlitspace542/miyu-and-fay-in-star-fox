@@ -34,8 +34,5 @@ strats_start
 	definestring	ceszerotxt,<0>
 	ENDC
 
-	IFNE	MSU
-	definestring	nomsutxt,<NO MSU-1 DETECTED!>
-	ENDC
 
 	strats_end

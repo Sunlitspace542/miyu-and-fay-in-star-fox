@@ -32,8 +32,8 @@ initialise_l ; Initialize game
 	sta	cock
 	sta	miyu
 	sta	fay
-	sta	pepper
-	sta	andorf
+;	sta	pepper
+;	sta	andorf
 
 	jsl	playerstart_init_l ; Initialize player variables
 	jsl	initplanets_l ; Initialize the planet selection
@@ -341,6 +341,9 @@ gameover_l	; Game over screen
 	a8i16 ; Set A to 8 bit and X/Y to 16 bit
 
 	bgm	gameover ; Set BGM to gameover
+	IFNE	MSU1
+	msuplay	gameover,norepeat
+	ENDC
 	stz	defaulttrain ; stz to defaulttrain var
 	lda	#0 ; Load 0 into A
 	sta.l	contexit ; Store A at contexit var
@@ -544,6 +547,9 @@ stagescore	a16 ; Set A to 16 bit
 
 	a8i16 ; Set A to 8 bit and X/Y to 16 bit
 	bgm	staff ; Set BGM to Staff Roll (Main Theme)
+	IFNE	MSU1
+	msuplay	staffroll,norepeat
+	ENDC
 	lda	#creditsmap>>16 ; Load credits map shifted right by 16 into A
 	ldx	#creditsmap&$7fff ; Load credits map &7fff into X
 	sta	mapbank ; Store A at map bank var
@@ -1408,24 +1414,6 @@ checkbonus	jsr	calctotalscore
 
 bonertab	dw	2100,1900,1700,1500,1300,1100,900,700,500,300,100,0
 
-
-    IFNE    msu
-pauseStart
-	a8
-	STZ msu_control
-	LDA #$64
-	RTS
-
-pauseEnd
-; the original MSU-1 patch NOP'd instructions
-; to make room and moved those 2 here
-;	STZ $1202 ; cont0
-;	STZ $1204 ; contl0
-	LDA #$03
-	STA msu_control
-	RTS
-    ENDC
-
 ;--------------------------------------------------------------------
 dopause	php
 	a8i16
@@ -1439,9 +1427,10 @@ dopause	php
 	jsl	transfer_l		;transfer bitmap, do strats etc.
 	jsr	printpause
 	jsl	transfer_l		;transfer bitmap, do strats etc.
-    IFNE    msu
-    jsr pauseStart
-    ENDC
+	IFNE	msu1
+	LDA	#audiostate_none
+	STA	msu_control
+	ENDC
 	a8
 .wait	waitdma	100
 	lda	joy1h
@@ -1455,9 +1444,10 @@ dopause	php
 	lda	joy1h
 	bit	#key_start
 	bne	.wait3
-    IFNE    msu
-    jsr pauseEnd
-    endc
+	IFNE	msu1
+	LDA #audiostate_repeat
+	STA msu_control
+	endc
 	stz	cont0
 	stz	contl0
 	stz	cont0l

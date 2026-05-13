@@ -844,6 +844,25 @@ msg_deutscher
 msg_claude
 	mariomsg	<CLAUDE MOYSE>
 
+	IFNE	RUMBLE
+msg_rumbleversion
+	mariomsg	<SHINDOU EDITION>
+
+msg_kando
+	mariomsg	<KANDOWONTU>
+
+msg_randy
+	mariomsg	<RANDAL LINDEN>
+
+msg_sunlit
+	mariomsg	<SUNLIT>
+	ENDC
+
+	IFNE	MSU1
+msg_msu1
+	mariomsg	<MSU-1 PROGRAMMING>
+	ENDC
+
 msg_0	mariomsg	<0>
 msg_1	mariomsg	<1>
 msg_2	mariomsg	<2>

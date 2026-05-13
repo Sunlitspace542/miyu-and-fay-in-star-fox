@@ -2190,6 +2190,9 @@ blackhole_Istrat
 
 	s_jmp_alvarNE		B,x,al_sbyte1,#70,.nbgm
 	startbgm		$f4
+	IFNE	MSU1
+	s_msuplay	blackholewarp,norepeat
+	ENDC
 	s_and_var		B,pshipflags3,#~psf3_enginesnd
 .nbgm
 

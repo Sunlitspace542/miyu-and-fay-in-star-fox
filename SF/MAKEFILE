@@ -67,7 +67,7 @@ ALLFILES= BANK\BANK0.SOB BANK\BANK1.SOB BANK\BANK2.SOB \
 
 # Recipe to assemble a .ASM file and create a linkable .SOB file
 .asm.sob:
-	@$(ASM) $(NOANSI) -eFAST=$(fast) -m30 $(ASMFLAGS) $< -v$*.SOB
+	@$(ASM) $(NOANSI) -eFAST=$(fast) -eMSU1=$(msu) -m30 $(ASMFLAGS) $< -v$*.SOB
 
 # Recipes to crunch graphics
 .cgx.ccr:

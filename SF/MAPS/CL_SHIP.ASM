@@ -5,6 +5,10 @@ cl_ship3_4
 	mapCLplayermode	ClearShip2
 	setbgm	bgm_fanfare
 
+	IFNE	MSU1
+	mapmsuplay	clearorch,repeat
+	ENDC
+
 	mapobj	0000,0000,space_viewCY,0,colony_0,ship0cdown_Istrat
 	setalvar	roty,deg180
 
@@ -15,6 +19,9 @@ cl_ship1_3
 
 	mapCLplayermode	ClearShip2
 	setbgm	bgm_fanfare
+	IFNE	MSU1
+	mapmsuplay	clearorch,repeat
+	ENDC
 
 	mapobj	0000,0000,space_viewCY,0,Sship_0_c,ship0cdown_Istrat
 

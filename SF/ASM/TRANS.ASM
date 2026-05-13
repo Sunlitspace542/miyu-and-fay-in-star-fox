@@ -235,15 +235,6 @@ stratsfrozen
 	marioprint		32,60+1,faytxt
 	ENDC
 
-	IFNE	MSU
-	lda	msupresent
-	beq	.msuchkfail
-	bne	.msuchkpass
-.msuchkfail
-	kandoprint	4,15,nomsutxt
-.msuchkpass
-	ENDC
-
 	ifne	mario_stats3d
 
 	lda	framesb ; framerate
@@ -267,12 +258,6 @@ stratsfrozen
 	;printd	1,6
 	lda.l	m_points_done
 	printd	1,6
-
-	; MSU track debugging
-	IFNE	msu
-	lda	msu_017f ; current MSU track
-	printd	1,2
-	ENDC
 
 	;lda.l	m_visis_done+1
 	;printd	1,7
